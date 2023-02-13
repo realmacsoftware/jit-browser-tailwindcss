@@ -2,6 +2,8 @@ import postcss from 'postcss';
 import processTailwindFeatures from 'tailwindcss/src/processTailwindFeatures.js';
 import resolveConfig from 'tailwindcss/src/public/resolve-config.js';
 
+
+
 export const createTailwindcss: typeof import('..').createTailwindcss = (
   { tailwindConfig } = {},
 ) => {
@@ -9,6 +11,12 @@ export const createTailwindcss: typeof import('..').createTailwindcss = (
   let currentTailwindConfig = tailwindConfig;
 
   return {
+    /// RM: Get full config
+    getFullConfig() {
+      const full = resolveConfig(tailwindConfig ?? {})      
+      return JSON.stringify(full)
+    },
+
     setTailwindConfig(newTailwindConfig) {
       currentTailwindConfig = newTailwindConfig;
     },
